@@ -53,7 +53,7 @@ export class planeacion extends Model<planeacionAttributes, planeacionCreationAt
       primaryKey: true
     },
     objetivo: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     presupuesto: {

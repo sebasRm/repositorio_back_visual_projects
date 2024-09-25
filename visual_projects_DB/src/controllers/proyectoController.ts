@@ -84,11 +84,15 @@ export async function consultarProyectos(req: Request, res: Response) {
 export async function consultarProyectosDirector(req: Request, res: Response) {
   try {
     let id_director = req.params.idDirector;
-    const proyectos = await initModel.proyecto.findAll({
+    const proyectos:any = await initModel.proyecto.findAll({
       where: {
         Director_idDirector: id_director,
       },
       include: [
+        {
+          model: initModel.planeacion,
+          as: "Planeacion_",
+        },
         {
           model: initModel.estado,
           as: "Estado_",
@@ -105,7 +109,28 @@ export async function consultarProyectosDirector(req: Request, res: Response) {
         },
       ],
     });
-    if (proyectos.length > 0) {
+    if (proyectos) {
+      let proyecto: any;
+      //console.log("soy el proyectos", proyectos)
+      for (proyecto in proyectos) {
+        let Planeacion_idPlaneacion = proyectos[proyecto].dataValues
+          ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
+          : 0;
+        let Cronograma_idCronograma = proyectos[proyecto].dataValues
+          ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
+          : 0;
+
+        let spi = await serviceIndicatorProjectSPI(
+          Cronograma_idCronograma,
+          Planeacion_idPlaneacion
+        );
+        let cpi = await serviceIndicatorProjectCPI(
+          Cronograma_idCronograma,
+          Planeacion_idPlaneacion
+        );
+        proyectos[proyecto].dataValues.indicator_spi = spi;
+        proyectos[proyecto].dataValues.indicator_cpi = cpi;
+      }
       return responseMessage(
         res,
         200,

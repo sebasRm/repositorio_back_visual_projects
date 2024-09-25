@@ -5,5 +5,5 @@ export function responseMessage(res:any, status:any, data:any, msg:any)
         msg:msg,
         data:data
     }
-    return res.status(status).send(jsonData);;
+    return res.status(status).send(jsonData);
 }

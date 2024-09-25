@@ -70,11 +70,11 @@ export class tarea extends Model<tareaAttributes, tareaCreationAttributes> imple
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     descripcion: {
-      type: DataTypes.STRING(300),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     presupuesto: {

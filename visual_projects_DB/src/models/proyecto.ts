@@ -71,11 +71,11 @@ export class proyecto extends Model<proyectoAttributes, proyectoCreationAttribut
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(400),
       allowNull: true
     },
     descripcion: {
-      type: DataTypes.STRING(300),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     fechaInicio: {

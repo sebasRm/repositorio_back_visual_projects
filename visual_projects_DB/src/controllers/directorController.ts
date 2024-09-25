@@ -18,9 +18,7 @@ export async function crearDirector(req: Request, res: Response) {
           correo: email,
         },
       });
-     
       if (userExist) {
-        console.log("userExist", responseMessage(res, 400, false,"Ya existe un director asociado con ese correo"))
         return  responseMessage(res, 400, false,"Ya existe un director asociado con ese correo");
       } else {
         const user: any = await initModel.usuario.create({

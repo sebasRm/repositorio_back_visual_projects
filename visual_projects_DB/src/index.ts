@@ -13,7 +13,7 @@ app.use('',router);
 let initModel:any
 
 const credentials={
-    database: process.env.DATABASE || 'visual-projects-empresa',
+    database: process.env.DATABASE || 'visual-projects-db',
     user:process.env.USER || 'root',
     password:process.env.PASSWORD || '',
     host : process.env.HOST || 'localhost',
@@ -22,7 +22,6 @@ const credentials={
 
 export const main = async()=>{
     let sequelizeConection:any = await sequelize;
-    //console.log("soy el sequelize", sequelize)
     sequelizeConection.authenticate();
     app.listen(4000, ()=>{
         console.log("Server listening port 4000");

@@ -192,10 +192,34 @@ export async function contarEstadoMetas(req: Request, res: Response) {
 export async function consultarPresupuestoMeta(req: Request, res: Response) {
   let idMeta = req.params.idMeta;
   try {
-    let meta = await initModel.meta.findOne({
+    let meta:any = await initModel.meta.findOne({
       where: { idMeta: idMeta },
+      include: [
+        {
+          model: initModel.actividad,
+          as: "actividads",
+          required: false,
+            where: {
+              Estado_idEstado: 4,
+            },              
+        },
+      ],
     });
+    console.log("soy la meta", meta)
     if (meta) {
+     
+      let presupuestoActividadesCerradas:any = 0
+      if(meta.dataValues?.actividads.length>0)
+      {
+        let actividades = meta.dataValues?.actividads
+        for (const actividad in actividades)
+        {
+          let presupuesto = actividades[actividad].dataValues.presupuesto
+          presupuestoActividadesCerradas += presupuesto
+        }
+      }  
+      meta.dataValues.presupuestoCerrado = presupuestoActividadesCerradas
+      delete meta.dataValues.actividads
       return responseMessage(res, 200, meta, "Meta.");
     } else {
       return responseMessage(
@@ -267,6 +291,7 @@ export async function actualizarMetaEstado(req: Request, res: Response) {
             tareaMaxima = 4;
           }
         }
+        console.log("soy la tareaMaxima", tareaMaxima)
         let estadoMeta = {
           Estado_idEstado: tareaMaxima,
         };

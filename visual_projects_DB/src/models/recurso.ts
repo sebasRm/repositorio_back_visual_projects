@@ -61,11 +61,11 @@ export class recurso extends Model<recursoAttributes, recursoCreationAttributes>
       primaryKey: true
     },
     nombre: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(400),
       allowNull: true
     },
     descripcion: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(400),
       allowNull: true
     },
     presupuesto: {

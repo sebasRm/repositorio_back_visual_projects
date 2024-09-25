@@ -6,7 +6,7 @@ function responseMessage(res, status, data, msg) {
         msg: msg,
         data: data
     };
-    return data;
+    return res.status(status).send(jsonData);
 }
 exports.responseMessage = responseMessage;
 //# sourceMappingURL=utils.js.map

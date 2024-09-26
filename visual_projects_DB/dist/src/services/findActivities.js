@@ -46,7 +46,7 @@ async function findTotalActivitiesPlanned(idCronograma) {
                 model: initModel.actividadplaneada,
                 as: "actividadplaneadas",
                 where: {
-                  cronogramaOriginal: false,
+                  cronogramaOriginal: true,
                 },
                 attributes: [
                     [

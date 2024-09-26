@@ -12,7 +12,7 @@ class planeacion extends sequelize_1.Model {
                 primaryKey: true
             },
             objetivo: {
-                type: sequelize_1.DataTypes.STRING(200),
+                type: sequelize_1.DataTypes.STRING(500),
                 allowNull: true
             },
             presupuesto: {
@@ -37,4 +37,3 @@ class planeacion extends sequelize_1.Model {
     }
 }
 exports.planeacion = planeacion;
-//# sourceMappingURL=planeacion.js.map

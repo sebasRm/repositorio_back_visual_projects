@@ -23,4 +23,3 @@ async function buscarResponsables(req, res) {
     }
 }
 exports.buscarResponsables = buscarResponsables;
-//# sourceMappingURL=responsableController.js.map

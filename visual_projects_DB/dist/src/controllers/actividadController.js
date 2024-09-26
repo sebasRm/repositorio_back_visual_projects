@@ -683,4 +683,3 @@ async function actualizarActividadEstado(req, res) {
     }
 }
 exports.actualizarActividadEstado = actualizarActividadEstado;
-//# sourceMappingURL=actividadController.js.map

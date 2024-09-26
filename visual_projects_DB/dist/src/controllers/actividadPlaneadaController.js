@@ -65,4 +65,3 @@ async function buscarActividadPlaneada(req, res) {
     }
 }
 exports.buscarActividadPlaneada = buscarActividadPlaneada;
-//# sourceMappingURL=actividadPlaneadaController.js.map

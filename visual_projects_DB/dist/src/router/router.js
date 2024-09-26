@@ -103,4 +103,3 @@ router.post("/api/crear/recurso/tarea", recursoController_1.crearRecursoTarea);
 router.get("/api/total/presupuesto-recurso/tarea/:idTarea", recursoController_1.totalPresupuestoRecursoTarea);
 router.delete("/api/eliminar/recurso/tarea/:idRecurso", recursoController_1.eliminarRecursoTarea);
 router.put("/api/actualizar/recurso/tarea", recursoController_1.actualizarRecursoTarea);
-//# sourceMappingURL=router.js.map

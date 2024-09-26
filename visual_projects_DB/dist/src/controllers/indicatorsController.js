@@ -141,4 +141,3 @@ async function indicatorProjectCPI(req, res) {
     }
 }
 exports.indicatorProjectCPI = indicatorProjectCPI;
-//# sourceMappingURL=indicatorsController.js.map

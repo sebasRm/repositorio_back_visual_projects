@@ -326,4 +326,3 @@ async function findTaskFinishActivity(idActividad) {
     return totalTareas;
 }
 exports.findTaskFinishActivity = findTaskFinishActivity;
-//# sourceMappingURL=findTask.js.map

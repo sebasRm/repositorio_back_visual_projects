@@ -579,4 +579,3 @@ async function actualizarRecursoTarea(req, res) {
     }
 }
 exports.actualizarRecursoTarea = actualizarRecursoTarea;
-//# sourceMappingURL=recursoController.js.map

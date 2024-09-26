@@ -83,4 +83,3 @@ describe("consultarLideres function", () => {
         expect(mockResponseMessage).toHaveBeenCalledWith(res, 503, mockError, "error server ...");
     });
 });
-//# sourceMappingURL=login.test.js.map

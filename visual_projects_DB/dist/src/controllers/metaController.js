@@ -136,8 +136,29 @@ async function consultarPresupuestoMeta(req, res) {
     try {
         let meta = await initModel.meta.findOne({
             where: { idMeta: idMeta },
+            include: [
+                {
+                    model: initModel.actividad,
+                    as: "actividads",
+                    required: false,
+                    where: {
+                        Estado_idEstado: 4,
+                    },
+                },
+            ],
         });
+        console.log("soy la meta", meta);
         if (meta) {
+            let presupuestoActividadesCerradas = 0;
+            if (meta.dataValues?.actividads.length > 0) {
+                let actividades = meta.dataValues?.actividads;
+                for (const actividad in actividades) {
+                    let presupuesto = actividades[actividad].dataValues.presupuesto;
+                    presupuestoActividadesCerradas += presupuesto;
+                }
+            }
+            meta.dataValues.presupuestoCerrado = presupuestoActividadesCerradas;
+            delete meta.dataValues.actividads;
             return (0, utils_1.responseMessage)(res, 200, meta, "Meta.");
         }
         else {
@@ -201,6 +222,7 @@ async function actualizarMetaEstado(req, res) {
                         tareaMaxima = 4;
                     }
                 }
+                console.log("soy la tareaMaxima", tareaMaxima);
                 let estadoMeta = {
                     Estado_idEstado: tareaMaxima,
                 };
@@ -320,4 +342,3 @@ async function actualizarMeta(req, res) {
     }
 }
 exports.actualizarMeta = actualizarMeta;
-//# sourceMappingURL=metaController.js.map

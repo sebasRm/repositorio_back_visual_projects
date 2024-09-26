@@ -19,7 +19,6 @@ async function crearDirector(req, res) {
             },
         });
         if (userExist) {
-            console.log("userExist", (0, utils_1.responseMessage)(res, 400, false, "Ya existe un director asociado con ese correo"));
             return (0, utils_1.responseMessage)(res, 400, false, "Ya existe un director asociado con ese correo");
         }
         else {
@@ -41,4 +40,3 @@ async function crearDirector(req, res) {
     }
 }
 exports.crearDirector = crearDirector;
-//# sourceMappingURL=directorController.js.map

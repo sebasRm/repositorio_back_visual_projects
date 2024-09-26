@@ -166,4 +166,3 @@ async function actualizarLider(req, res) {
     }
 }
 exports.actualizarLider = actualizarLider;
-//# sourceMappingURL=LiderController.js.map

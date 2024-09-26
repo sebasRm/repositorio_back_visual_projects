@@ -12,11 +12,11 @@ class recurso extends sequelize_1.Model {
                 primaryKey: true
             },
             nombre: {
-                type: sequelize_1.DataTypes.STRING(100),
+                type: sequelize_1.DataTypes.STRING(400),
                 allowNull: true
             },
             descripcion: {
-                type: sequelize_1.DataTypes.STRING(45),
+                type: sequelize_1.DataTypes.STRING(400),
                 allowNull: true
             },
             presupuesto: {
@@ -101,4 +101,3 @@ class recurso extends sequelize_1.Model {
     }
 }
 exports.recurso = recurso;
-//# sourceMappingURL=recurso.js.map

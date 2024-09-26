@@ -567,4 +567,3 @@ async function actualizarTarea(req, res) {
     }
 }
 exports.actualizarTarea = actualizarTarea;
-//# sourceMappingURL=tareaController.js.map

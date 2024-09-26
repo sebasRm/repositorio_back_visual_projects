@@ -73,6 +73,10 @@ async function consultarProyectosDirector(req, res) {
             },
             include: [
                 {
+                    model: initModel.planeacion,
+                    as: "Planeacion_",
+                },
+                {
                     model: initModel.estado,
                     as: "Estado_",
                 },
@@ -88,7 +92,21 @@ async function consultarProyectosDirector(req, res) {
                 },
             ],
         });
-        if (proyectos.length > 0) {
+        if (proyectos) {
+            let proyecto;
+            //console.log("soy el proyectos", proyectos)
+            for (proyecto in proyectos) {
+                let Planeacion_idPlaneacion = proyectos[proyecto].dataValues
+                    ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
+                    : 0;
+                let Cronograma_idCronograma = proyectos[proyecto].dataValues
+                    ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
+                    : 0;
+                let spi = await (0, indicators_1.serviceIndicatorProjectSPI)(Cronograma_idCronograma, Planeacion_idPlaneacion);
+                let cpi = await (0, indicators_1.serviceIndicatorProjectCPI)(Cronograma_idCronograma, Planeacion_idPlaneacion);
+                proyectos[proyecto].dataValues.indicator_spi = spi;
+                proyectos[proyecto].dataValues.indicator_cpi = cpi;
+            }
             return (0, utils_1.responseMessage)(res, 200, proyectos, "proyectos asociados al director");
         }
         else {
@@ -304,4 +322,3 @@ async function actualizarProyecto(req, res) {
     }
 }
 exports.actualizarProyecto = actualizarProyecto;
-//# sourceMappingURL=proyectoController.js.map

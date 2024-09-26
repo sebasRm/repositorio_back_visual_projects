@@ -17,7 +17,7 @@ app.use(express_1.default.json());
 app.use('', router_1.router);
 let initModel;
 const credentials = {
-    database: process.env.DATABASE || 'visual-projects-empresa',
+    database: process.env.DATABASE || 'visual-projects-db',
     user: process.env.USER || 'root',
     password: process.env.PASSWORD || '',
     host: process.env.HOST || 'localhost',
@@ -25,7 +25,6 @@ const credentials = {
 };
 const main = async () => {
     let sequelizeConection = await conection_1.sequelize;
-    //console.log("soy el sequelize", sequelize)
     sequelizeConection.authenticate();
     app.listen(4000, () => {
         console.log("Server listening port 4000");
@@ -33,4 +32,3 @@ const main = async () => {
 };
 exports.main = main;
 (0, exports.main)();
-//# sourceMappingURL=index.js.map

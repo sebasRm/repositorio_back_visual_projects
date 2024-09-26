@@ -43,4 +43,3 @@ async function login(req, res) {
     }
 }
 exports.login = login;
-//# sourceMappingURL=usuarioControllers.js.map

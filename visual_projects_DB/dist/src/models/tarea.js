@@ -12,11 +12,11 @@ class tarea extends sequelize_1.Model {
                 primaryKey: true
             },
             nombre: {
-                type: sequelize_1.DataTypes.STRING(100),
+                type: sequelize_1.DataTypes.STRING(500),
                 allowNull: true
             },
             descripcion: {
-                type: sequelize_1.DataTypes.STRING(300),
+                type: sequelize_1.DataTypes.STRING(500),
                 allowNull: true
             },
             presupuesto: {
@@ -94,4 +94,3 @@ class tarea extends sequelize_1.Model {
     }
 }
 exports.tarea = tarea;
-//# sourceMappingURL=tarea.js.map

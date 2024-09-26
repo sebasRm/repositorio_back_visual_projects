@@ -44,4 +44,3 @@ class cronograma extends sequelize_1.Model {
     }
 }
 exports.cronograma = cronograma;
-//# sourceMappingURL=cronograma.js.map

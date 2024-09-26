@@ -47,4 +47,3 @@ async function crearPlaneacion(req, res) {
     }
 }
 exports.crearPlaneacion = crearPlaneacion;
-//# sourceMappingURL=planeacionController.js.map

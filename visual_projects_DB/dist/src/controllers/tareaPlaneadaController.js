@@ -27,4 +27,3 @@ async function buscarTareaPlaneada(req, res) {
     }
 }
 exports.buscarTareaPlaneada = buscarTareaPlaneada;
-//# sourceMappingURL=tareaPlaneadaController.js.map

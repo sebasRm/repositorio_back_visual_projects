@@ -116,4 +116,3 @@ function initModels(sequelize) {
     };
 }
 exports.initModels = initModels;
-//# sourceMappingURL=init-models.js.map

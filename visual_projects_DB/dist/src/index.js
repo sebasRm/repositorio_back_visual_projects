@@ -12,7 +12,7 @@ const router_1 = require("./router/router");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 exports.app = app;
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({origin: 'https://nodejs-4xci-production.up.railway.app'}));
 app.use(express_1.default.json());
 app.use('', router_1.router);
 let initModel;

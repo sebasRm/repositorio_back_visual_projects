@@ -12,15 +12,8 @@ const router_1 = require("./router/router");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 exports.app = app;
-// Configuración de CORS
-const corsOptions = {
-  origin: '*', // Origen permitido
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
-  credentials: true, // Permitir cookies
-};
-console.log("soy una pruba");
-app.use((0, cors_1.default)(corsOptions));
+
+app.use((0, cors_1.default)());
 
 app.use(express_1.default.json());
 app.use('', router_1.router);

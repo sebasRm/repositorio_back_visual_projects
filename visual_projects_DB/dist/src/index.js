@@ -12,7 +12,16 @@ const router_1 = require("./router/router");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 exports.app = app;
-app.use((0, cors_1.default)({origin: 'https://nodejs-4xci-production.up.railway.app'}));
+// Configuración de CORS
+const corsOptions = {
+  origin: 'https://nodejs-4xci-production.up.railway.app', // Origen permitido
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
+  credentials: true, // Permitir cookies
+};
+
+app.use((0, cors_1.default)(corsOptions));
+
 app.use(express_1.default.json());
 app.use('', router_1.router);
 let initModel;

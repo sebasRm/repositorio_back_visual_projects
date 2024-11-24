@@ -14,7 +14,7 @@ const app = (0, express_1.default)();
 exports.app = app;
 // Configuración de CORS
 const corsOptions = {
-  origin: 'https://nodejs-4xci-production.up.railway.app', // Origen permitido
+  origin: '*', // Origen permitido
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
   credentials: true, // Permitir cookies

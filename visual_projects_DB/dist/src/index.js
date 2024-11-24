@@ -19,7 +19,7 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
   credentials: true, // Permitir cookies
 };
-
+console.log("soy una pruba");
 app.use((0, cors_1.default)(corsOptions));
 
 app.use(express_1.default.json());

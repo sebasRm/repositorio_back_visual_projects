@@ -98,3 +98,4 @@ class tareaplaneada extends sequelize_1.Model {
     }
 }
 exports.tareaplaneada = tareaplaneada;
+//# sourceMappingURL=tareaplaneada.js.map

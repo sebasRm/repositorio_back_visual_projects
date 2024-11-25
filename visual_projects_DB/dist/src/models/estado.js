@@ -37,3 +37,4 @@ class estado extends sequelize_1.Model {
     }
 }
 exports.estado = estado;
+//# sourceMappingURL=estado.js.map

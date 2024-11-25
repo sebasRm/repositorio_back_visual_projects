@@ -331,7 +331,7 @@ router.put("/api/actualizar/actividad", actividadController_1.actualizarActivida
 router.post("/api/contar/actividades", actividadController_1.contarTotalActividades);
 router.post("/api/contar/actividades/activas", actividadController_1.contarActividadesActivas);
 router.post("/api/contar/actividades/finalizadas", actividadController_1.contarActividadesFinalizadas);
-router.post("/api/pocentaje/actividades/finalizadas", actividadController_1.porcentajeActividadesTermidas);
+router.post("/api/pocentaje/actividades/finalizadas", actividadController_1.porcentajeActividades);
 router.post("/api/crear/actividad", actividadController_1.crearActividad);
 router.delete("/api/eliminar/actividad/:idActividad", actividadController_1.eliminarActividad);
 /** *********************  MODULO ACTIVIDADES PLANEADAS*************************/
@@ -345,7 +345,7 @@ router.get("/api/consultar/tareas-actividades/ejecucion/:idActividad", tareaCont
 router.get("/api/consultar/tareas-actividades/cierre/:idActividad", tareaController_1.consultarTareasActividadCierre);
 router.get("/api/total/presupuesto-tarea/actividad/:idActividad", tareaController_1.totalPresupuestoTareaActividad);
 router.post("/api/contar/tareas", tareaController_1.contarTotalTareas);
-router.post("/api/pocentaje/tareas/finalizadas", tareaController_1.porcentajeTareasTermidas);
+router.post("/api/pocentaje/tareas/finalizadas", tareaController_1.porcentajeTareas);
 router.post("/api/crear/tarea", tareaController_1.crearTarea);
 router.put("/api/actualizar/estado-inicio/tarea/:idTarea", tareaController_1.actualizarTareaInicio);
 router.put("/api/actualizar/estado-organizacion/tarea/:idTarea", tareaController_1.actualizarTareaOrganizacion);

@@ -1203,7 +1203,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.actualizarTarea = exports.eliminarTarea = exports.totalPresupuestoTareaActividad = exports.actualizarTareaCierre = exports.actualizarTareaEjecucion = exports.actualizarTareaOrganizacion = exports.actualizarTareaInicio = exports.consultarTareasActividadCierre = exports.consultarTareasActividadEjecucion = exports.consultarTareasActividadOrganizacion = exports.consultarTareasActividadInicio = exports.consultarTareasActividad = exports.crearTarea = exports.porcentajeTareasTermidas = exports.contarTotalTareas = void 0;
+exports.actualizarTarea = exports.eliminarTarea = exports.totalPresupuestoTareaActividad = exports.actualizarTareaCierre = exports.actualizarTareaEjecucion = exports.actualizarTareaOrganizacion = exports.actualizarTareaInicio = exports.consultarTareasActividadCierre = exports.consultarTareasActividadEjecucion = exports.consultarTareasActividadOrganizacion = exports.consultarTareasActividadInicio = exports.consultarTareasActividad = exports.crearTarea = exports.porcentajeTareas = exports.contarTotalTareas = void 0;
 const init_models_1 = require("../models/init-models");
 const conection_1 = require("../db/conection");
 const utils_1 = require("../helpers/utils");
@@ -1240,7 +1240,7 @@ exports.contarTotalTareas = contarTotalTareas;
 /*
    =&gt; Funcion para crear el porcetaje de las tareas cuto estado esta en cierre o 4
 */
-async function <span class="fstat-no" title="function not covered" >porcentajeTareasTermidas(</span>req, res) {
+async function <span class="fstat-no" title="function not covered" >porcentajeTareas(</span>req, res) {
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >        req = req.body.data.activity;</span>
         const { idCronograma } = <span class="cstat-no" title="statement not covered" >req;</span>
@@ -1266,7 +1266,7 @@ async function <span class="fstat-no" title="function not covered" >porcentajeTa
 <span class="cstat-no" title="statement not covered" >        return (0, utils_1.responseMessage)(res, 503, error, "error server ...");</span>
     }
 }
-exports.porcentajeTareasTermidas = porcentajeTareasTermidas;
+exports.porcentajeTareas = porcentajeTareas;
 async function <span class="fstat-no" title="function not covered" >crearTarea(</span>req, res) {
 <span class="cstat-no" title="statement not covered" >    req = req.body.data.task;</span>
     const { nombre } = <span class="cstat-no" title="statement not covered" >req;</span>

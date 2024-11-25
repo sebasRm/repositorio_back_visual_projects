@@ -44,3 +44,4 @@ class lider extends sequelize_1.Model {
     }
 }
 exports.lider = lider;
+//# sourceMappingURL=lider.js.map

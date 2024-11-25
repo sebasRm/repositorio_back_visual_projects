@@ -6,9 +6,21 @@ const conection_1 = require("../db/conection");
 let initModel = (0, init_models_1.initModels)(conection_1.sequelize);
 const utils_1 = require("../helpers/utils");
 const bcrypt = require("bcrypt");
-/*
-   => Funcion para consultar todos los lideres
-*/
+/**
+ * @description Consulta todos los líderes registrados, incluyendo los usuarios asociados a cada líder.
+ *
+ * @route GET /consultar-lideres
+ * @param {Request} req - El objeto de la solicitud HTTP.
+ *
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ *
+ * @returns {Response} - Devuelve una respuesta indicando el estado de la operación:
+ * - 200: Si existen líderes registrados, junto con los datos de los líderes y sus usuarios asociados.
+ * - 404: Si no se encuentran líderes registrados.
+ * - 503: Si ocurre un error en el servidor.
+ *
+ * @throws {Error} Si ocurre un error durante la consulta de los líderes.
+ */
 async function consultarLideres(req, res) {
     try {
         const lideres = await initModel.lider.findAll({
@@ -31,9 +43,21 @@ async function consultarLideres(req, res) {
     }
 }
 exports.consultarLideres = consultarLideres;
-/*
-   => Funcion para consultar todos los lideres sin un proyecto asociado
-*/
+/**
+ * @description Consulta todos los líderes que no están asociados a un proyecto, incluyendo los usuarios asociados a cada líder.
+ *
+ * @route GET /consultar-lideres-sin-proyecto
+ * @param {Request} req - El objeto de la solicitud HTTP.
+ *
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ *
+ * @returns {Response} - Devuelve una respuesta indicando el estado de la operación:
+ * - 200: Si existen líderes sin proyectos asociados, junto con los datos de los líderes y sus usuarios asociados.
+ * - 404: Si no se encuentran líderes sin proyectos registrados.
+ * - 503: Si ocurre un error en el servidor.
+ *
+ * @throws {Error} Si ocurre un error durante la consulta de los líderes sin proyecto.
+ */
 async function consultarLideresSinProyecto(req, res) {
     try {
         let lideresOnProjects = [];
@@ -69,9 +93,22 @@ async function consultarLideresSinProyecto(req, res) {
     }
 }
 exports.consultarLideresSinProyecto = consultarLideresSinProyecto;
-/*
-   => Funcion para crear un lider
-*/
+/**
+ * @description Crea un nuevo líder asociando un usuario y una contraseña cifrada.
+ * Verifica que no exista ya un usuario con el mismo correo.
+ *
+ * @route POST /crear-lider
+ * @param {Request} req - El objeto de la solicitud HTTP, que debe contener los datos del usuario (nombre, correo, contraseña).
+ *
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ *
+ * @returns {Response} - Devuelve una respuesta indicando el estado de la operación:
+ * - 200: Si el líder fue creado correctamente, junto con los datos del líder.
+ * - 400: Si ya existe un líder con el mismo correo.
+ * - 503: Si ocurre un error en el servidor.
+ *
+ * @throws {Error} Si ocurre un error durante la creación del líder o al verificar la existencia del correo.
+ */
 async function crearLider(req, res) {
     try {
         req = req.body.data.user;
@@ -106,6 +143,21 @@ async function crearLider(req, res) {
     }
 }
 exports.crearLider = crearLider;
+/**
+ * @description Elimina un líder junto con su usuario asociado, siempre y cuando el líder no esté asignado a un proyecto.
+ *
+ * @route DELETE /eliminar-lider/:idLider
+ * @param {Request} req - El objeto de la solicitud HTTP, que debe contener el parámetro `idLider` en la URL.
+ *
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ *
+ * @returns {Response} - Devuelve una respuesta indicando el estado de la operación:
+ * - 200: Si el líder y su usuario fueron eliminados correctamente.
+ * - 404: Si el líder tiene un proyecto asociado y no puede ser eliminado.
+ * - 503: Si ocurre un error en el servidor.
+ *
+ * @throws {Error} Si ocurre un error al eliminar el líder o al verificar la existencia de un proyecto asociado.
+ */
 async function eliminarLider(req, res) {
     try {
         let idLider = req.params.idLider;
@@ -117,7 +169,6 @@ async function eliminarLider(req, res) {
                 where: { idLider: idLider },
             });
             const idUsuario = lider.dataValues.Usuario_idUsuario;
-            console.log("soy el idUsuario", idUsuario);
             const lideres = await initModel.lider.destroy({
                 where: { idLider: idLider },
             });
@@ -137,6 +188,23 @@ async function eliminarLider(req, res) {
     }
 }
 exports.eliminarLider = eliminarLider;
+/**
+ * @description Actualiza el nombre de un líder en la base de datos.
+ * La actualización se realiza en el usuario asociado al líder, buscando el `idLider`
+ * y actualizando el nombre del usuario correspondiente.
+ *
+ * @route PUT /actualizar-lider
+ * @param {Request} req - El objeto de la solicitud HTTP, que debe contener los datos del líder (idLider, nombre) dentro del cuerpo de la solicitud.
+ *
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ *
+ * @returns {Response} - Devuelve una respuesta indicando el estado de la operación:
+ * - 200: Si el líder fue actualizado correctamente.
+ * - 400: Si hubo un error al intentar actualizar el líder.
+ * - 503: Si ocurre un error en el servidor.
+ *
+ * @throws {Error} Si ocurre un error durante la actualización del líder o al intentar encontrar el usuario asociado.
+ */
 async function actualizarLider(req, res) {
     try {
         req = req.body.data.lider;
@@ -166,3 +234,4 @@ async function actualizarLider(req, res) {
     }
 }
 exports.actualizarLider = actualizarLider;
+//# sourceMappingURL=LiderController.js.map

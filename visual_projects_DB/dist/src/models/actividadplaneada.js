@@ -98,3 +98,4 @@ class actividadplaneada extends sequelize_1.Model {
     }
 }
 exports.actividadplaneada = actividadplaneada;
+//# sourceMappingURL=actividadplaneada.js.map

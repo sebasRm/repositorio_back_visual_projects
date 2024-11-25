@@ -41,3 +41,4 @@ class usuario extends sequelize_1.Model {
     }
 }
 exports.usuario = usuario;
+//# sourceMappingURL=usuario.js.map

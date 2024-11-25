@@ -71,3 +71,4 @@ class meta extends sequelize_1.Model {
     }
 }
 exports.meta = meta;
+//# sourceMappingURL=meta.js.map

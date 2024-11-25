@@ -45,9 +45,6 @@ async function findTotalActivitiesPlanned(idCronograma) {
             {
                 model: initModel.actividadplaneada,
                 as: "actividadplaneadas",
-                where: {
-                  cronogramaOriginal: true,
-                },
                 attributes: [
                     [
                         sequelize_1.default.fn("COUNT", sequelize_1.default.col("idActividadPlaneada")),
@@ -267,3 +264,4 @@ async function findActivitiesFinishGoal(idMeta) {
     return totalActividades;
 }
 exports.findActivitiesFinishGoal = findActivitiesFinishGoal;
+//# sourceMappingURL=findActivities.js.map

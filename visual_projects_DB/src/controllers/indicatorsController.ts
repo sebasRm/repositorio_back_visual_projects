@@ -3,7 +3,25 @@ import { initModels } from "../models/init-models";
 import { sequelize } from "../db/conection";
 import { responseMessage } from "../helpers/utils";
 let initModel = initModels(sequelize);
-import Sequelize, { Op } from "sequelize";
+
+/**
+ * @description Calcula el SPI (Schedule Performance Index) de un proyecto, 
+ * que es un indicador que mide la relación entre el valor ganado (EV) 
+ * y el valor planeado total PV (BAC) de las actividades completadas de un proyecto.
+ * 
+ * @route POST /indicatorProjectSPI
+ * @param {Request} req - El objeto de la solicitud HTTP, que debe contener los datos del proyecto (idCronograma, idPlaneacion) dentro del cuerpo de la solicitud.
+ * 
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * 
+ * @returns {Response} - Devuelve una respuesta con el cálculo del SPI:
+ * - 200: Si el SPI fue calculado correctamente.
+ * - 400: Si ocurrió un error al consultar el SPI.
+ * - 503: Si ocurre un error en el servidor.
+ * 
+ * @throws {Error} Si ocurre un error durante el cálculo del SPI o al intentar consultar las actividades planeadas.
+ */
+
 
 export async function indicatorProjectSPI(req: Request, res: Response) {
   try {
@@ -11,7 +29,6 @@ export async function indicatorProjectSPI(req: Request, res: Response) {
     const { idCronograma }: any = req;
     const { idPlaneacion }: any = req;
     let ev = 0;
-
     let acitividadesCompletadas: any = await initModel.meta.findAll({
         where: { Cronograma_idCronograma: idCronograma },
         include: [
@@ -28,7 +45,6 @@ export async function indicatorProjectSPI(req: Request, res: Response) {
       
       if(acitividadesCompletadas.length>0)
       {
-        
       let pv: any = await initModel.planeacion.findOne({
         where: { idPlaneacion: idPlaneacion },
         attributes: ["presupuesto"],
@@ -93,12 +109,28 @@ export async function indicatorProjectSPI(req: Request, res: Response) {
   }
 }
 
+/**
+ * @description Calcula el CPI (Cost Performance Index) de un proyecto, 
+ * que es un indicador que mide la relación entre el valor ganado (EV) 
+ * y el costo real (AC) de las actividades completadas en el proyecto.
+ * 
+ * @route POST /indicatorProjectCPI
+ * @param {Request} req - El objeto de la solicitud HTTP, que debe contener los datos del proyecto (idCronograma) dentro del cuerpo de la solicitud.
+ * 
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * 
+ * @returns {Response} - Devuelve una respuesta con el cálculo del CPI:
+ * - 200: Si el CPI fue calculado correctamente.
+ * - 400: Si ocurrió un error al consultar el CPI.
+ * - 503: Si ocurre un error en el servidor.
+ * 
+ * @throws {Error} Si ocurre un error durante el cálculo del CPI o al intentar consultar las actividades planeadas.
+ */
 
 export async function indicatorProjectCPI(req: Request, res: Response) {
     try {
       req = req.body.data.project;
       const { idCronograma }: any = req;
-      const { idPlaneacion }: any = req;
       let ev = 0;
       let ac=0;
   
@@ -132,7 +164,7 @@ export async function indicatorProjectCPI(req: Request, res: Response) {
             }
             if(ac == 0)
             {
-              let dataSPI = {
+              let dataCPI = {
                 ev: 0,
                 ac:0,
                 cpi: 0
@@ -140,13 +172,13 @@ export async function indicatorProjectCPI(req: Request, res: Response) {
               return responseMessage(
                   res,
                   200,
-                  dataSPI,
+                  dataCPI,
                   "SPI del proyecto"
                 );
             }
 
             let cpi: any = ev / ac;
-            let dataSPI = {
+            let dataCPI = {
               ev: ev,
               ac:ac,
               cpi: cpi
@@ -157,17 +189,16 @@ export async function indicatorProjectCPI(req: Request, res: Response) {
               return responseMessage(
                   res,
                   200,
-                  dataSPI,
-                  "SPI del proyecto"
+                  dataCPI,
+                  "CPI del proyecto"
                 );
             }
             else{
                 return responseMessage(res, 400, false, "error al consultar sl spi");
             }
-        
         }
         else{
-            let dataSPI = {
+            let dataCPI = {
                 ev: 0,
                 ac:0,
                 cpi: 0
@@ -175,16 +206,11 @@ export async function indicatorProjectCPI(req: Request, res: Response) {
             return responseMessage(
                 res,
                 200,
-                dataSPI,
-                "SPI del proyecto"
+                dataCPI,
+                "CPI del proyecto"
               );
         }
-       
-
-  
-           
-  
     } catch (error) {
       return responseMessage(res, 503, error, "error server ...");
     }
-  }
+}

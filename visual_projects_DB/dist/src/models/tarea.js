@@ -94,3 +94,4 @@ class tarea extends sequelize_1.Model {
     }
 }
 exports.tarea = tarea;
+//# sourceMappingURL=tarea.js.map

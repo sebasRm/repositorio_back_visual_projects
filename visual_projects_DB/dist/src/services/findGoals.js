@@ -133,3 +133,4 @@ async function findTaskTotal(idMeta) {
     return totalTareas;
 }
 exports.findTaskTotal = findTaskTotal;
+//# sourceMappingURL=findGoals.js.map

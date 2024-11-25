@@ -94,3 +94,4 @@ class actividad extends sequelize_1.Model {
     }
 }
 exports.actividad = actividad;
+//# sourceMappingURL=actividad.js.map

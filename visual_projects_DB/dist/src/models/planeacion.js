@@ -37,3 +37,4 @@ class planeacion extends sequelize_1.Model {
     }
 }
 exports.planeacion = planeacion;
+//# sourceMappingURL=planeacion.js.map

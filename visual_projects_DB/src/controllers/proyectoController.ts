@@ -7,11 +7,25 @@ import {
   serviceIndicatorProjectSPI,
   serviceIndicatorProjectCPI,
 } from "../services/indicators";
-const bcrypt = require("bcrypt");
-import Sequelize, { Op } from "sequelize";
-/*
-   => Funcion para consultar todos los proyectos
-*/
+
+
+/**
+ * @description Esta función consulta todos los proyectos asociados a un director, 
+ * incluyendo detalles sobre la planeación, estado y líder del proyecto, así como 
+ * los indicadores SPI y CPI calculados para cada proyecto. Si los proyectos son 
+ * encontrados, se devuelve una lista con todos los proyectos y sus indicadores. 
+ * Si no se encuentran proyectos, se devuelve un mensaje indicando que no existen proyectos asociados al director.
+ * En caso de error en el servidor, se devuelve un mensaje con el error.
+ * 
+ * @route GET /consultar-proyectos
+ * @param {Request} req - El objeto de la solicitud HTTP. 
+ * El objeto `req` no tiene parámetros específicos en la URL, pero incluye las credenciales necesarias en el encabezado si es necesario.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si los proyectos son encontrados, devuelve una lista de proyectos con sus detalles e indicadores SPI y CPI.
+ * - 404: Si no se encuentran proyectos asociados al director, devuelve un mensaje de error.
+ * - 503: Si ocurre un error en el servidor, devuelve un mensaje con el error.
+ */
 export async function consultarProyectos(req: Request, res: Response) {
   try {
     const proyectos: any = await initModel.proyecto.findAll({
@@ -38,7 +52,6 @@ export async function consultarProyectos(req: Request, res: Response) {
     });
     if (proyectos) {
       let proyecto: any;
-      //console.log("soy el proyectos", proyectos)
       for (proyecto in proyectos) {
         let Planeacion_idPlaneacion = proyectos[proyecto].dataValues
           ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
@@ -73,14 +86,28 @@ export async function consultarProyectos(req: Request, res: Response) {
       );
     }
   } catch (error) {
-    console.log("soy el error", error);
     return responseMessage(res, 503, error, "error server ...");
   }
 }
 
-/*
-   => Funcion para consultar todos los proyectos asociados a un director
-*/
+/**
+ * @description Esta función consulta todos los proyectos asociados a un director específico, 
+ * identificado por su `idDirector`. Incluye detalles sobre la planeación, estado y líder del proyecto, 
+ * así como los indicadores SPI y CPI calculados para cada proyecto. Si los proyectos son 
+ * encontrados, se devuelve una lista con todos los proyectos y sus indicadores. 
+ * Si no se encuentran proyectos, se devuelve un mensaje indicando que no existen proyectos asociados al director.
+ * En caso de error en el servidor, se devuelve un mensaje con el error.
+ * 
+ * @route GET /consultar-proyectos-director/:idDirector
+ * @param {Request} req - El objeto de la solicitud HTTP. Contiene el parámetro `idDirector` en la URL. 
+ * Ejemplo: `/consultar-proyectos-director/123`
+ * El parámetro `idDirector` debe ser un identificador único del director.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si los proyectos son encontrados, devuelve una lista de proyectos con sus detalles e indicadores SPI y CPI.
+ * - 404: Si no se encuentran proyectos asociados al director, devuelve un mensaje de error.
+ * - 503: Si ocurre un error en el servidor, devuelve un mensaje con el error.
+ */
 export async function consultarProyectosDirector(req: Request, res: Response) {
   try {
     let id_director = req.params.idDirector;
@@ -111,7 +138,6 @@ export async function consultarProyectosDirector(req: Request, res: Response) {
     });
     if (proyectos) {
       let proyecto: any;
-      //console.log("soy el proyectos", proyectos)
       for (proyecto in proyectos) {
         let Planeacion_idPlaneacion = proyectos[proyecto].dataValues
           ? proyectos[proyecto].dataValues.Planeacion_idPlaneacion
@@ -150,9 +176,22 @@ export async function consultarProyectosDirector(req: Request, res: Response) {
   }
 }
 
-/*
-   => Función para consultar todos el proyecto asociados a un líder
-*/
+/**
+ * @description Esta función consulta todos los proyectos asociados a un líder específico, 
+ * identificado por su `idLider`. La función devuelve una lista con los proyectos asociados 
+ * a ese líder, incluyendo detalles sobre el estado y la planeación del proyecto. 
+ * Si no se encuentran proyectos, se devuelve un mensaje indicando que no existen proyectos asociados al líder.
+ * En caso de error en el servidor, se devuelve un mensaje con el error.
+ * 
+ * @route GET /consultar-proyectos-lider/:idLider
+ * @param {Request} req - El objeto de la solicitud HTTP. Contiene el parámetro `idLider` en la URL. 
+ * El parámetro `idLider` debe ser un identificador único del líder. Ejemplo: `/consultar-proyectos-lider/45`.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si se encuentran proyectos asociados al líder, devuelve una lista de proyectos con sus detalles.
+ * - 404: Si no existen proyectos asociados al líder, devuelve un mensaje indicando la ausencia de proyectos.
+ * - 503: Si ocurre un error en el servidor, devuelve un mensaje con el error.
+ */
 export async function consultarProyectosLider(req: Request, res: Response) {
   try {
     let id_lider = req.params.idLider;
@@ -190,9 +229,26 @@ export async function consultarProyectosLider(req: Request, res: Response) {
   }
 }
 
-/*
-   => Funcion para crear un proyecto
-*/
+/**
+ * @description Esta función permite la creación de un nuevo proyecto. Los datos del proyecto, 
+ * como el nombre, descripción, líder y director, se reciben en el cuerpo de la solicitud. 
+ * Antes de crear el proyecto, la función verifica si ya existe un proyecto con el mismo nombre. 
+ * Si el proyecto se crea con éxito, se devuelve una respuesta indicando la creación correcta. 
+ * Si ya existe un proyecto con el mismo nombre o ocurre algún error, se devuelve un mensaje adecuado.
+ * 
+ * @route POST /crear-proyecto
+ * @param {Request} req - El objeto de la solicitud HTTP. Contiene el cuerpo de la solicitud en formato JSON con los siguientes datos:
+ * - `name` (string): Nombre del proyecto. Ejemplo: `"Proyecto Alpha"`.
+ * - `descripcion` (string): Descripción del proyecto. Ejemplo: `"Descripción del proyecto Alpha"`.
+ * - `idLider` (number): Identificador del líder asociado al proyecto. Ejemplo: `2`.
+ * - `idDirector` (number): Identificador del director asociado al proyecto. Ejemplo: `1`.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si el proyecto es creado con éxito, devuelve los datos del proyecto recién creado.
+ * - 404: Si ya existe un proyecto con el mismo nombre, devuelve un mensaje indicando el conflicto.
+ * - 400: Si ocurre un error al crear el proyecto, devuelve un mensaje de error.
+ * - 503: Si ocurre un error en el servidor, devuelve un mensaje con el error.
+ */
 export async function crearProyectos(req: Request, res: Response) {
   try {
     req = req.body.data.project;
@@ -200,7 +256,6 @@ export async function crearProyectos(req: Request, res: Response) {
     const { descripcion }: any = req;
     const { idLider }: any = req;
     const { idDirector }: any = req;
-    console.log("soy el verdadero");
     const proyectoExist: any = await initModel.proyecto.findOne({
       where: { nombre: name },
     });
@@ -234,6 +289,25 @@ export async function crearProyectos(req: Request, res: Response) {
     return responseMessage(res, 503, error, "error server ...");
   }
 }
+
+/**
+ * @description Esta función elimina un proyecto específico identificado por su `idProyecto`. 
+ * Durante el proceso, también elimina las dependencias relacionadas con el proyecto, como metas, 
+ * actividades, tareas y recursos asociados. La función asegura que todas las relaciones 
+ * jerárquicas sean eliminadas antes de eliminar el proyecto.
+ * 
+ * @route DELETE /eliminar-proyecto/:idProyecto
+ * @param {Request} req - El objeto de la solicitud HTTP. Contiene el parámetro `idProyecto` en la URL:
+ * - `idProyecto` (number): Identificador único del proyecto a eliminar.
+ *   Ejemplo: `/eliminar-proyecto/123`.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si el proyecto y sus dependencias se eliminan con éxito.
+ * - 404: Si el proyecto no se encuentra o hay un error al eliminar.
+ * - 503: Si ocurre un error en el servidor.
+ * 
+ * @throws {Error} Si ocurre un error durante la operación de eliminación.
+ */
 
 export async function eliminarProyecto(req: Request, res: Response) {
   try {
@@ -305,7 +379,7 @@ export async function eliminarProyecto(req: Request, res: Response) {
               });
             }
           }
-          let metaDeleted = await initModel.meta.destroy({
+          await initModel.meta.destroy({
             where: { idMeta: idMeta },
           });
         }
@@ -329,6 +403,29 @@ export async function eliminarProyecto(req: Request, res: Response) {
     return responseMessage(res, 503, error, "error server ...");
   }
 }
+
+/**
+ * @description Esta función actualiza los detalles de un proyecto específico, incluyendo su 
+ * nombre, descripción, estado, fechas de inicio y finalización, y presupuesto planificado. 
+ * Si el proyecto tiene una planeación asociada, también actualiza el presupuesto dentro de la planeación.
+ * 
+ * @route PUT /actualizar-proyecto
+ * @param {Request} req - El objeto de la solicitud HTTP. Contiene el cuerpo de la solicitud en formato JSON con los siguientes datos:
+ * - `idProyecto` (number): Identificador único del proyecto a actualizar.
+ * - `name` (string): Nuevo nombre del proyecto. Ejemplo: `"Proyecto Beta"`.
+ * - `descripcion` (string): Nueva descripción del proyecto. Ejemplo: `"Descripción del proyecto Beta"`.
+ * - `idEstado` (number): Identificador del nuevo estado del proyecto.
+ * - `fechaInicio` (Date): Nueva fecha de inicio del proyecto. Ejemplo: `"2024-01-01"`.
+ * - `fechaFinal` (Date): Nueva fecha de finalización del proyecto. Ejemplo: `"2024-12-31"`.
+ * - `presupuesto` (number): Nuevo presupuesto planificado del proyecto.
+ * @param {Response} res - El objeto de la respuesta HTTP.
+ * @returns {Response} - Devuelve una respuesta con el código HTTP correspondiente:
+ * - 200: Si el proyecto se actualiza con éxito.
+ * - 400: Si hay un error al actualizar el proyecto.
+ * - 503: Si ocurre un error en el servidor.
+ * 
+ * @throws {Error} Si ocurre un error durante la operación de actualización.
+ */
 
 export async function actualizarProyecto(req: Request, res: Response) {
   try {
@@ -355,7 +452,6 @@ export async function actualizarProyecto(req: Request, res: Response) {
       where: { idProyecto: idProyecto },
     });
     const idPlaneacion = proyecto.dataValues.Planeacion_idPlaneacion;
-    console.log('soy el idPlaneacion',idPlaneacion)
     if (idPlaneacion) {
       const presupuestoPlanificado = {
         presupuesto: presupuesto,

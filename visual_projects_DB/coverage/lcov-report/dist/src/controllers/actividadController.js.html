@@ -1439,7 +1439,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.actualizarActividadEstado = exports.eliminarActividad = exports.consultarPresupuestoActividad = exports.consultarRecursosActividad = exports.actualizarActividad = exports.actualizarActividadCierre = exports.actualizarActividadEjecucion = exports.actualizarActividadInicio = exports.actualizarActividadOrganizacion = exports.consultarActividadesMetaCierre = exports.consultarActividadesMetaEjecucion = exports.consultarActividadesMetaOrganizacion = exports.consultarActividadesMetaInicio = exports.crearActividad = exports.consultarActividadesMeta = exports.porcentajeActividadesTermidas = exports.contarActividadesActivas = exports.contarActividadesFinalizadas = exports.contarTotalActividades = void 0;
+exports.actualizarActividadEstado = exports.eliminarActividad = exports.consultarPresupuestoActividad = exports.consultarRecursosActividad = exports.actualizarActividad = exports.actualizarActividadCierre = exports.actualizarActividadEjecucion = exports.actualizarActividadInicio = exports.actualizarActividadOrganizacion = exports.consultarActividadesMetaCierre = exports.consultarActividadesMetaEjecucion = exports.consultarActividadesMetaOrganizacion = exports.consultarActividadesMetaInicio = exports.crearActividad = exports.consultarActividadesMeta = exports.porcentajeActividades = exports.contarActividadesActivas = exports.contarActividadesFinalizadas = exports.contarTotalActividades = void 0;
 const init_models_1 = require("../models/init-models");
 const conection_1 = require("../db/conection");
 const utils_1 = require("../helpers/utils");
@@ -1515,7 +1515,7 @@ exports.contarActividadesActivas = contarActividadesActivas;
 /*
    =&gt; Funcion para crear el porcetaje de las actividades donde el estado esta en cierre o 4
 */
-async function <span class="fstat-no" title="function not covered" >porcentajeActividadesTermidas(</span>req, res) {
+async function <span class="fstat-no" title="function not covered" >porcentajeActividades(</span>req, res) {
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >        req = req.body.data.activity;</span>
         const { idCronograma } = <span class="cstat-no" title="statement not covered" >req;</span>
@@ -1548,7 +1548,7 @@ async function <span class="fstat-no" title="function not covered" >porcentajeAc
 <span class="cstat-no" title="statement not covered" >        return (0, utils_1.responseMessage)(res, 503, error, "error server ...");</span>
     }
 }
-exports.porcentajeActividadesTermidas = porcentajeActividadesTermidas;
+exports.porcentajeActividades = porcentajeActividades;
 /*
    =&gt; Función para consultar las actividades asociadas a una meta
 */

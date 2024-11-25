@@ -7,3 +7,4 @@ exports.sequelize = sequelize = new sequelize_1.Sequelize("visual-projects-db", 
     host: "mysql.railway.internal",
     dialect: "mysql",
 });
+//# sourceMappingURL=conection.js.map

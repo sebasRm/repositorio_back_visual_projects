@@ -44,3 +44,4 @@ class responsable extends sequelize_1.Model {
     }
 }
 exports.responsable = responsable;
+//# sourceMappingURL=responsable.js.map

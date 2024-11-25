@@ -20,7 +20,7 @@ import {
   contarActividadesActivas,
   contarActividadesFinalizadas,
   contarTotalActividades,
-  porcentajeActividadesTermidas,
+  porcentajeActividades,
   consultarActividadesMeta,
   crearActividad,
   consultarActividadesMetaInicio,
@@ -43,7 +43,7 @@ import {
 } from "../controllers/actividadPlaneadaController";
 import {
   contarTotalTareas,
-  porcentajeTareasTermidas,
+  porcentajeTareas,
   crearTarea,
   consultarTareasActividad,
   consultarTareasActividadInicio,
@@ -171,7 +171,7 @@ router.post(
 );
 router.post(
   "/api/pocentaje/actividades/finalizadas",
-  porcentajeActividadesTermidas
+  porcentajeActividades
 );
 router.post("/api/crear/actividad", crearActividad);
 
@@ -208,7 +208,7 @@ router.get(
 );
 
 router.post("/api/contar/tareas", contarTotalTareas);
-router.post("/api/pocentaje/tareas/finalizadas", porcentajeTareasTermidas);
+router.post("/api/pocentaje/tareas/finalizadas", porcentajeTareas);
 router.post("/api/crear/tarea", crearTarea);
 router.put(
   "/api/actualizar/estado-inicio/tarea/:idTarea",

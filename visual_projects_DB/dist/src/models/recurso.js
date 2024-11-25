@@ -101,3 +101,4 @@ class recurso extends sequelize_1.Model {
     }
 }
 exports.recurso = recurso;
+//# sourceMappingURL=recurso.js.map

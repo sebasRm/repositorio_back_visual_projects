@@ -44,3 +44,4 @@ class director extends sequelize_1.Model {
     }
 }
 exports.director = director;
+//# sourceMappingURL=director.js.map

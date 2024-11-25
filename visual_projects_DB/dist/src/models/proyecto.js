@@ -120,3 +120,4 @@ class proyecto extends sequelize_1.Model {
     }
 }
 exports.proyecto = proyecto;
+//# sourceMappingURL=proyecto.js.map
